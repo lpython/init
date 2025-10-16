@@ -53,21 +53,6 @@ sudo apt-get install tealdeer -y
 tldr --update
 
 
-```
-
-
-This is removed for now, fzf goes to brew
-```txt
-# Add fzf shell integration to rc_patch.sh
-cat >> init/rc_patch.sh << 'EOF'
-
-# fzf shell integration
-source <(fzf --zsh)
-EOF
-
-echo "Added fzf config to init/rc_patch.sh"
-
-```
 
 
 ## IO Utilities
@@ -344,37 +329,13 @@ echo "GNOME keybindings cleaned up"
 
 ---
 
-## Shell Configuration (rc_patch.sh)
+## Shell Integrations
 
-Many installation tasks add configuration to `init/rc_patch.sh` instead of directly modifying your `.zshrc` or `.bashrc`. This gives you control over what gets added to your shell.
+For managing shell integrations (fzf, zoxide, starship, etc.) across bash and zsh, see:
 
-### How it works:
+**[SHELL_INTEGRATIONS.md](SHELL_INTEGRATIONS.md)** - Cross-shell integrations for bash/zsh
 
-1. **Setup tasks append to rc_patch.sh** - As you run tasks (like "CLI Tools"), they add their shell configuration to `init/rc_patch.sh`
-2. **Review the file** - Check what's been added: `cat init/rc_patch.sh`
-3. **Source it in your shell config** - Add to your `.zshrc` or `.bashrc`:
-
-```bash
-# Source init/rc_patch.sh if it exists
-[ -f "$HOME/repos/init_workspace/init/rc_patch.sh" ] && source "$HOME/repos/init_workspace/init/rc_patch.sh"
-```
-
-### Pattern for appending to rc_patch.sh:
-
-Any task that needs shell configuration uses this pattern:
-
-```bash
-# Add configuration to rc_patch.sh
-cat >> init/rc_patch.sh << 'EOF'
-
-# Your config here
-export PATH="$HOME/bin:$PATH"
-EOF
-
-echo "Added config to init/rc_patch.sh"
-```
-
-**Note:** `rc_patch.sh` is gitignored - it's generated locally and specific to your machine.
+This generates `~/.shell_integrations.sh` with automatic shell detection that works on both Linux and macOS.
 
 ---
 
