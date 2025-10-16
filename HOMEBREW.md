@@ -20,6 +20,13 @@ Install Homebrew package manager for Linux.
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 ```
 
+## Shell settings
+
+```bash
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+```
+
 ## Install Shared Packages
 
 Install packages common across all machines.
@@ -28,26 +35,6 @@ Install packages common across all machines.
 #!/bin/sh
 
 brew bundle install --file=init/brew/Brewfile.shared
-```
-
-**Included packages:**
-- bzip2, zlib, pcre2 - compression and regex libraries
-- ripgrep - fast grep alternative
-- eza - modern ls replacement
-- dust - du replacement
-- zoxide - smart cd command
-- fnm - Fast Node Manager
-- go - Go programming language
-- ouch - compression/decompression utility
-
-## Install Desktop Packages
-
-Install GUI applications and desktop-specific tools.
-
-```bash
-#!/bin/sh
-
-brew bundle install --file=init/brew/Brewfile.desktop
 ```
 
 **Included packages:**
@@ -63,9 +50,7 @@ Install Asus Zephyrus laptop-specific packages.
 brew bundle install --file=init/brew/Brewfile.zephyrus
 ```
 
----
 
-## Maintenance Tasks
 
 ### Export Current Installation
 
@@ -79,37 +64,6 @@ brew bundle dump --force
 
 # Or export to specific location
 # brew bundle dump --file=init/brew/Brewfile.backup --force
-```
-
-### Update All Packages
-
-Upgrade all installed packages.
-
-```bash
-#!/bin/sh
-
-brew update
-brew upgrade
-```
-
-### Cleanup Old Versions
-
-Remove old package versions to free up space.
-
-```bash
-#!/bin/sh
-
-brew cleanup
-```
-
-### Check Installation Health
-
-Diagnose potential issues.
-
-```bash
-#!/bin/sh
-
-brew doctor
 ```
 
 ---

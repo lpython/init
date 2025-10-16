@@ -194,8 +194,6 @@ Install Iosevka font family from latest GitHub release.
 
 *https://github.com/be5invis/Iosevka*
 
-**Prerequisites:** Requires `jq` - install with `sudo apt install jq`
-
 ```bash
 #!/bin/sh
 set -e
@@ -212,6 +210,18 @@ curl -s https://api.github.com/repos/be5invis/Iosevka/releases/latest \
   | grep 'PkgTTC-Iosevka' \
   | xargs -n 1 curl -L --fail --silent --show-error -O
 
+# Decompress all downloaded zip files using ouch (or fallback to unzip)
+if command -v ouch &> /dev/null; then
+  for file in *.zip; do
+    [ -f "$file" ] && ouch decompress "$file"
+  done
+else
+  unzip -o '*.zip'
+fi
+
+# Remove zip files to clean up
+rm -f *.zip
+
 cd ..
 
 # Move into system fonts dir
@@ -224,6 +234,49 @@ fc-cache -fv
 cd "$D"
 
 echo "Iosevka fonts installed successfully"
+```
+
+---
+
+```
+# Decompress all downloaded zip files using ouch (or fallback to unzip)
+if type -q ouch
+  # 'type -q' is the idiomatic way to check for a command's existence
+  # Fish's glob expansion expands to an empty list if no files match (like nullglob)
+  for file in *.zip
+    # The 'test' command checks file attributes, and '-f' is for regular file
+    # 'test -f $file' returns a 0 exit status (success) if true
+    if test -f "$file"
+      ouch decompress "$file"
+    end
+  end
+else
+  unzip -o '*.zip'
+end
+```
+
+
+```
+# Decompress all downloaded zip files using ouch (or fallback to unzip)
+if (which ouch | is-empty | not) {
+  # 'which ouch' outputs a table/list if found, or nothing if not.
+  # '| is-empty | not' checks if the output is NOT empty, meaning 'ouch' exists.
+  
+  # 'glob' finds the files and outputs them as a list of path records.
+  # 'each' iterates over the list, similar to a 'for' loop.
+  glob '*.zip' | each {|file|
+    # '$file.name' gives the path string from the glob record.
+    # 'path type' returns a type string, e.g., "file", "dir", "symlink".
+    # We check if the type is exactly "file" (regular file).
+    if ($file.name | path type) == "file" {
+      # The Nushell call to an external command uses the ^ prefix.
+      ^ouch decompress $file.name
+    }
+  }
+} else {
+  # If 'ouch' is not found, run the external 'unzip' command directly.
+  ^unzip -o '*.zip'
+}
 ```
 
 ## WezTerm Terminal
@@ -249,8 +302,6 @@ cp ./config/.wezterm.lua  ~/.wezterm.lua
 Install pet command-line snippet manager.
 
 *https://github.com/knqyf263/pet*
-
-**Prerequisites:** Requires `jq` - install with `sudo apt install jq`
 
 ```bash
 #!/bin/sh
