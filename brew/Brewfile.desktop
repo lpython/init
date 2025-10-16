@@ -1,0 +1,11 @@
+# Desktop/GUI applications
+# Install with: brew bundle install --file=init/brew/Brewfile.desktop
+
+# Editors and terminals
+brew "helix"
+
+# Add your desktop apps here
+# Examples:
+# cask "wezterm"
+# cask "visual-studio-code"
+# cask "discord"

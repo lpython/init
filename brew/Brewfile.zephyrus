@@ -1,0 +1,7 @@
+# Asus Zephyrus laptop-specific packages
+# Install with: brew bundle install --file=init/brew/Brewfile.zephyrus
+
+# Add laptop-specific tools here
+# Examples:
+# brew "powertop"
+# brew "tlp"

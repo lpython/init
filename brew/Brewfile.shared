@@ -1,0 +1,14 @@
+# Shared packages across all machines
+# Install with: brew bundle install --file=init/brew/Brewfile.shared
+
+# CLI utilities
+brew "bzip2"
+brew "dust"
+brew "eza"
+brew "fnm"
+brew "go"
+brew "ouch"
+brew "pcre2"
+brew "ripgrep"
+brew "zlib"
+brew "zoxide"

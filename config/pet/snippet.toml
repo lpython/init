@@ -1,0 +1,18 @@
+
+[[Snippets]]
+  Description = "ssh-keygen md5 gen (test)"
+  Output = ""
+  Tag = []
+  command = "ssh-keygen -l  -E md5 -f ~/.ssh/id_ed25519"
+
+[[Snippets]]
+  Description = "remove rust target folders"
+  Output = ""
+  Tag = []
+  command = "fd -t  d -I target -j 1 -X rm -r "
+
+[[Snippets]]
+  Description = "upstream pet config"
+  Output = ""
+  Tag = []
+  command = "cp $HOME/.config/pet/snippet.toml $PG/config/pet/snippet.toml"
