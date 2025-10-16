@@ -48,10 +48,27 @@ Install essential command-line utilities.
 ```bash
 #!/bin/sh
 
-sudo apt-get install fzf fd-find -y
+sudo apt-get install fd-find -y
 sudo apt-get install tealdeer -y
 tldr --update
+
+
 ```
+
+
+This is removed for now, fzf goes to brew
+```txt
+# Add fzf shell integration to rc_patch.sh
+cat >> init/rc_patch.sh << 'EOF'
+
+# fzf shell integration
+source <(fzf --zsh)
+EOF
+
+echo "Added fzf config to init/rc_patch.sh"
+
+```
+
 
 ## IO Utilities
 
@@ -276,6 +293,40 @@ echo "GNOME keybindings cleaned up"
 
 ---
 
+## Shell Configuration (rc_patch.sh)
+
+Many installation tasks add configuration to `init/rc_patch.sh` instead of directly modifying your `.zshrc` or `.bashrc`. This gives you control over what gets added to your shell.
+
+### How it works:
+
+1. **Setup tasks append to rc_patch.sh** - As you run tasks (like "CLI Tools"), they add their shell configuration to `init/rc_patch.sh`
+2. **Review the file** - Check what's been added: `cat init/rc_patch.sh`
+3. **Source it in your shell config** - Add to your `.zshrc` or `.bashrc`:
+
+```bash
+# Source init/rc_patch.sh if it exists
+[ -f "$HOME/repos/init_workspace/init/rc_patch.sh" ] && source "$HOME/repos/init_workspace/init/rc_patch.sh"
+```
+
+### Pattern for appending to rc_patch.sh:
+
+Any task that needs shell configuration uses this pattern:
+
+```bash
+# Add configuration to rc_patch.sh
+cat >> init/rc_patch.sh << 'EOF'
+
+# Your config here
+export PATH="$HOME/bin:$PATH"
+EOF
+
+echo "Added config to init/rc_patch.sh"
+```
+
+**Note:** `rc_patch.sh` is gitignored - it's generated locally and specific to your machine.
+
+---
+
 ## Additional Configuration
 
 After running the setup tasks, consider:
@@ -303,4 +354,4 @@ After running the setup tasks, consider:
 - Run tasks in order for best results
 - Some installers may require user interaction
 - Review and customize each script before running
-- Source your shell config after installation: `source ~/.zshrc` or `source ~/.bashrc`
+- After running tasks, review `init/rc_patch.sh` and source it in your shell config
