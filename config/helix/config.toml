@@ -1,0 +1,17 @@
+
+[keys.normal]
+j = "move_char_left"
+h = "move_line_up"
+k = "move_char_right"
+l = "move_line_down"
+
+# "C-h" = "move_line_up"
+# "C-l" = "move_line_down"
+
+
+[keys.select]
+h = "extend_line_up" 
+j = "extend_char_left"
+l = "extend_line_down"
+k = "extend_char_right"
+
